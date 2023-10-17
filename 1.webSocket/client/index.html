@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <script type="module">
+      const name = "client";
+      let wsUrl = "ws://127.0.0.1:1024/ws/?name=" + name;
+      let ws = new WebSocket(wsUrl);
+      // 连接建立好后，发送数据
+      ws.onopen = function () {
+        console.log("open");
+        ws.send(JSON.stringify({ name: name, msg: "hello" }));
+      };
+
+      // 接收服务端数据
+      ws.onmessage = function (e) {
+        let data = JSON.parse(e.data);
+        console.log("message", data);
+        ws.close();
+      };
+
+      // 连接关闭后，关闭定时器
+      ws.onclose = function () {
+        console.log("close");
+      };
+
+      // 连接错误时
+      ws.onerror = function (e) {
+        console.log("error", e);
+      };
+    </script>
+  </body>
+</html>
