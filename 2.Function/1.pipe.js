@@ -33,4 +33,9 @@ function compose(...fns) {
 }
 
 const pipeResult = pipe(add4, multiply2, divide2)(3);
+
 console.log(pipeResult); // 7
+
+const componentsResult = compose(add4, multiply2, divide2)(3);
+
+console.log(componentsResult);
